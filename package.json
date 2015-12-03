@@ -1,0 +1,27 @@
+{
+  "name": "icon-extractor",
+  "version": "1.0.0",
+  "description": "Given a path, return base64 data of the icon used for that file",
+  "main": "win-iconExtractor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScienceVikings/IconExtractor.git"
+  },
+  "keywords": [
+    "icon",
+    "extractor",
+    "windows"
+  ],
+  "author": "Justin Basinger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ScienceVikings/IconExtractor/issues"
+  },
+  "homepage": "https://github.com/ScienceVikings/IconExtractor#readme",
+  "dependencies": {
+    "lodash": "^3.10.1"
+  }
+}
