@@ -28,7 +28,6 @@ function IconExtractor(){
 
     //Bail if we don't have a complete string to parse yet.
     if (!_.endsWith(str, '\n')){
-      console.log('ended line');
       return;
     }
 
