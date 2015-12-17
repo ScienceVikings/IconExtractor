@@ -52,12 +52,13 @@ namespace IconExtractor {
     }
 
     static string getIconAsBase64(string path) {
-      if (!System.IO.File.Exists(path)) {
-        return "";
-      }
-
+      
       if (useShortcutPath && path.EndsWith(".lnk")) {
         path = getShortcutTarget(path);
+      }
+      
+      if (!System.IO.File.Exists(path)) {
+        return "";
       }
 
       Icon iconForPath = SystemIcons.WinLogo;
@@ -67,6 +68,7 @@ namespace IconExtractor {
       byte[] data = (byte[])vert.ConvertTo(iconForPath.ToBitmap(), typeof(byte[]));
 
       return Convert.ToBase64String(data);
+
     }
 
     static string getShortcutTarget(string path) {
