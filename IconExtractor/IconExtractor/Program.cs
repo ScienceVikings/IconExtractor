@@ -57,12 +57,11 @@ namespace IconExtractor {
         path = getShortcutTarget(path);
       }
       
-      if (!System.IO.File.Exists(path)) {
-        return "";
-      }
+      Icon iconForPath = SystemIcons.Application;
 
-      Icon iconForPath = SystemIcons.WinLogo;
-      iconForPath = Icon.ExtractAssociatedIcon(path);
+      if (System.IO.File.Exists(path)) {
+        iconForPath = Icon.ExtractAssociatedIcon(path);
+      }
 
       ImageConverter vert = new ImageConverter();
       byte[] data = (byte[])vert.ConvertTo(iconForPath.ToBitmap(), typeof(byte[]));
