@@ -1,6 +1,6 @@
 {
   "name": "icon-extractor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Given a path, return base64 data of the icon used for that file",
   "main": "win-iconExtractor.js",
   "scripts": {
