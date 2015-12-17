@@ -7,6 +7,7 @@ using System.Threading;
 using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
+using IWshRuntimeLibrary;
 
 namespace IconExtractor {
 
@@ -19,6 +20,9 @@ namespace IconExtractor {
   }
 
   class Program {
+
+    private static bool useShortcutPath;
+
     static void Main(string[] args) {
 
       // https://msdn.microsoft.com/en-us/library/ms404308%28v=vs.110%29.aspx?f=255&MSPPError=-2147217396
@@ -26,6 +30,8 @@ namespace IconExtractor {
       Console.InputEncoding = UTF8Encoding.UTF8;
       Console.OutputEncoding = UTF8Encoding.UTF8;
 
+      useShortcutPath = args.Length > 0 && args[0] == "-x";
+       
       while (true) {
 
         string input = Console.In.ReadLine().Trim();
@@ -40,14 +46,18 @@ namespace IconExtractor {
           Console.Error.WriteLine(ex);
           Console.Error.WriteLine(input);
         }
-
+        
       }
 
     }
 
     static string getIconAsBase64(string path) {
-      if (!File.Exists(path)) {
+      if (!System.IO.File.Exists(path)) {
         return "";
+      }
+
+      if (useShortcutPath && path.EndsWith(".lnk")) {
+        path = getShortcutTarget(path);
       }
 
       Icon iconForPath = SystemIcons.WinLogo;
@@ -57,6 +67,18 @@ namespace IconExtractor {
       byte[] data = (byte[])vert.ConvertTo(iconForPath.ToBitmap(), typeof(byte[]));
 
       return Convert.ToBase64String(data);
+    }
+
+    static string getShortcutTarget(string path) {
+
+      if (!System.IO.File.Exists(path)) {
+        return "";
+      }
+
+      WshShell shell = new WshShell();
+      IWshShortcut lnk = (IWshShortcut)shell.CreateShortcut(path);
+      return lnk.TargetPath;
+
     }
   }
 }

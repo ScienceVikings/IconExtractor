@@ -13,7 +13,7 @@ function IconExtractor(){
   var iconDataBuffer = "";
 
   this.emitter = new EventEmitter();
-  this.iconProcess = child_process.spawn(getPlatformIconProcess());
+  this.iconProcess = child_process.spawn(getPlatformIconProcess(),['-x']);
 
   this.getIcon = function(context, path){
     var json = JSON.stringify({context: context, path: path}) + "\n";
