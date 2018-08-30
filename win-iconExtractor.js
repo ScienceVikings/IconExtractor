@@ -1,11 +1,7 @@
 var EventEmitter = require('events');
-var fs = require('fs');
 var child_process = require('child_process');
-var _ = require('lodash');
 var os = require('os');
 var path = require('path');
-
-var emitter = new EventEmitter();
 
 function IconExtractor(){
 
@@ -21,18 +17,18 @@ function IconExtractor(){
   }
 
   this.iconProcess.stdout.on('data', function(data){
-
+    
     var str = (new Buffer(data, 'utf8')).toString('utf8');
 
     iconDataBuffer += str;
 
     //Bail if we don't have a complete string to parse yet.
-    if (!_.endsWith(str, '\n')){
+    if (!str.endsWith('\n')){
       return;
     }
 
     //We might get more than one in the return, so we need to split that too.
-    _.each(iconDataBuffer.split('\n'), function(buf){
+    iconDataBuffer.split('\n').forEach(buf => {
 
       if(!buf || buf.length == 0){
         return;
